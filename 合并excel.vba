@@ -1,7 +1,7 @@
 Option Explicit
-Sub 合并工作表1()
+Sub 合并工作表()
     'Application.ScreenUpdating = False
-    Dim FileName As String, Sht As Worksheet, Wb As Workbook,FolderName As String
+    Dim FileName As String, Sht As Worksheet, Wb As Workbook, FolderName As String
     Dim fd As FileDialog
     ' 创建FileDialog对象，设置为打开文件选择对话框
     Set fd = Application.FileDialog(msoFileDialogFolderPicker)
@@ -18,7 +18,7 @@ Sub 合并工作表1()
     FileName = Dir(FolderName & "\*.xls?")
     Do While FileName <> ""
        'Workbooks.Open FileName:="E:\项目\VBA\合并多个工作表\source\" & FileName
-       Workbooks.Open FileName:= FolderName & "\" & FileName
+       Workbooks.Open FileName:=FolderName & "\" & FileName
        Set Wb = ActiveWorkbook
        Set Sht = ThisWorkbook.Worksheets("Sheet1")
        For Each Sht In Wb.Worksheets
@@ -31,9 +31,10 @@ Sub 合并工作表1()
     Loop
     Application.ScreenUpdating = True
     '调用Sub
-    填入数据1
+    填入数据
 End Sub
-Sub 填入数据1()
+'设置成私有过程
+Private Sub 填入数据()
     Dim Sht As Worksheet, Wb As Workbook, Ws As Worksheet
     Dim EndRow As Long
     Set Sht = ActiveWorkbook.Worksheets("Sheet1")
@@ -47,7 +48,7 @@ Sub 填入数据1()
             Sht.Range("D" & EndRow + 1).Value = Ws.Range("B4").Value '国籍
             Sht.Range("E" & EndRow + 1).Value = Ws.Range("D4").Value '民族
             Sht.Range("F" & EndRow + 1).Value = Ws.Range("F4").Value '籍贯
-            Sht.Range("G" & EndRow + 1).Value = Ws.Range("B5").Value '身份证号
+            Sht.Range("G" & EndRow + 1).Value = "'" & Ws.Range("B5").Value '身份证号
             Sht.Range("H" & EndRow + 1).Value = Ws.Range("D5").Value '身份证开始时间
             Sht.Range("I" & EndRow + 1).Value = Ws.Range("F5").Value '身份证到期时间
             Sht.Range("J" & EndRow + 1).Value = Ws.Range("B6").Value '婚育状态
